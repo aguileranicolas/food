@@ -14,5 +14,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+  }, {
+    timestamps: false // Desactiva la creación de createdAt y updatedAt
   });
 };
+

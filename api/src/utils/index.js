@@ -1,4 +1,4 @@
-const extractSteps = (stepList) => {
+const extractSteps = (stepList) => { //array de strings
   const saveInDB = []
   stepList?.map((step) => {
     saveInDB.push(step.step)
@@ -6,14 +6,14 @@ const extractSteps = (stepList) => {
   return saveInDB
 };
 
-const extracDiets = (recipesList) => {
+const extracDiets = (recipesList) => { // array de dietas
   let dietList = []
   recipesList?.map((recipe) => {
     recipe.diets.map(diet => {
       dietList.push(diet)
     })
   })
-  const dietSet = new Set(dietList)
+  const dietSet = new Set(dietList) //para que no se repitan las dietas
   dietList = []
   dietSet.forEach(diet => {
     dietList.push(diet)

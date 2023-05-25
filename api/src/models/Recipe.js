@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     summary: {
       type: DataTypes.TEXT,
@@ -26,5 +26,23 @@ module.exports = (sequelize) => {
     steps: {
       type: DataTypes.ARRAY(DataTypes.STRING),
     },
+    vegetarian: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    vegan: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    glutenFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    created: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    }
+  }, {
+    timestamps: false
   });
 };

@@ -1,7 +1,7 @@
 const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-const { getAllRecipes, getRecipe, getRecipeByName, postRecipe, getAllDiet, getApiRecipes, saveDietsInDataBase } = require('../controllers/api-controller')
+const { getAllRecipes, getRecipe, postRecipe, getAllDiet, getApiRecipes, saveDietsInDataBase } = require('../controllers/api-controller')
 
 
 const router = Router();
@@ -11,10 +11,9 @@ const router = Router();
 router.get('/', async (req, res) => {
   try {
     const recipesList = await getApiRecipes()
-    console.log('recipes routes', recipesList)
     await saveDietsInDataBase(recipesList)
     res.status(200).json({
-      message: 'Aguante la chocotorta'
+      message: 'Se cargo la informacion a la base de datos'
     })
   } catch (error) {
     console.error(error)
@@ -29,30 +28,10 @@ router.get('/recipes', async (req, res) => {
     const recipesList = await getAllRecipes()
     if (recipesList.length <= 0) {
       res.status(404).send({
-        error: 'Aguante la marihuana'
+        error: 'Ocurrio un error'
       })
     } else {
       res.status(200).json(recipesList)
-    }
-
-  } catch (error) {
-    console.error(error)
-    res.status(500).send({
-      error: error.message
-    })
-  }
-})
-
-router.get('/recipes/search', async (req, res) => {
-  try {
-    const { name } = req.query
-    const recipe = await getRecipeByName(name)
-    if (!recipe.length > 0) {
-      res.status(404).send({
-        error: `Aguante la CocaCola`
-      })
-    } else {
-      res.status(200).json(recipe)
     }
 
   } catch (error) {
@@ -85,8 +64,8 @@ router.get('/recipes/:idReceta', async (req, res) => {
 
 router.post('/recipes', async (req, res) => {
   try {
-    const { name, image, summary, healthyLevel, steps, diets } = req.body
-    const recipe = await postRecipe({ name, image, summary, healthyLevel, steps, diets })
+    const { name, image, summary, healthyLevel, steps, diets, vegetarian, vegan, glutenFree, created } = req.body
+    const recipe = await postRecipe({ name, image, summary, healthyLevel, steps, diets, vegetarian, vegan, glutenFree, created })
     res.status(201).json(recipe)
   } catch (error) {
     console.error(error)
